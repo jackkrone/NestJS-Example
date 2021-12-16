@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { TaskStatus } from 'src/enums';
 import { Task } from './task.model';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class TasksService {
@@ -9,5 +11,20 @@ export class TasksService {
   // It's also not necessary to add the return type as TS infers it
   public getAllTasks(): Task[] {
     return this.tasks;
+  }
+
+  public createTask(title: string, description: string): Task {
+    const task: Task = {
+      id: uuid(),
+      title,
+      description,
+      // The following construction is ideal because you can change the value of OPEN
+      // ... in the enums file without having to change anything here
+      status: TaskStatus.OPEN,
+    };
+
+    this.tasks.push(task);
+
+    return task;
   }
 }

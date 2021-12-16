@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Task } from './task.model';
 import { TasksService } from './tasks.service';
 
@@ -15,4 +15,13 @@ export class TasksController {
     return this.tasksService.getAllTasks();
   }
 
+  // When a post request is received, NestJS will assign the body.title and body.description
+  // ... to  the title and description parameters... it ignores any other body properties
+  @Post()
+  createTask(
+    @Body('title') title: string,
+    @Body('description') description: string,
+  ): Task {
+    return this.tasksService.createTask(title, description);
+  }
 }
