@@ -29,4 +29,11 @@ export class TasksController {
   createTask(@Body() createTaskDto: CreateTaskDto): Task {
     return this.tasksService.createTask(createTaskDto);
   }
+
+  // localhost:3000/tasks/lk234hg438j
+  @Delete('/:id')
+  deleteTaskById(@Param('id') id: string): void {
+    // not necessary to includ return statemetn but also not problematic here
+    return this.tasksService.deleteTaskById(id);
+  }
 }
