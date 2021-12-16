@@ -38,4 +38,14 @@ export class TasksService {
     this.tasks = this.tasks.filter((task) => task.id !== id);
     // no need to return anything
   }
+
+  public updateTaskStatusById(id: string, status: TaskStatus): Task {
+    // update task of given id
+    // very simple because JavaScript passes objects by reference
+    // it's bad practice to mutate the task directly
+    // would be more bulletproof code if you replace it after validating that it exists
+    const task = this.getTaskById(id);
+    task.status = status;
+    return task;
+  }
 }
