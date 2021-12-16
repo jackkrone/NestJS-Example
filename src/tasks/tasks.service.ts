@@ -3,6 +3,7 @@ import { TaskStatus } from 'src/enums';
 import { Task } from './task.model';
 import { v4 as uuid } from 'uuid';
 import { CreateTaskDto } from './DTOs/create-task.dto';
+import { GetTasksFilterDto } from './DTOs/get-tasks-filter';
 
 @Injectable()
 export class TasksService {
@@ -12,6 +13,31 @@ export class TasksService {
   // It's also not necessary to add the return type as TS infers it
   public getAllTasks(): Task[] {
     return this.tasks;
+  }
+
+  public getTasksWithFilters(filterDto: GetTasksFilterDto): Task[] {
+    const { status, search } = filterDto;
+
+    // define temp arr to hold result
+    // Is this a proper copy of the array? Given that JS passes objects by reference
+    let tasks = this.getAllTasks();
+
+    // filter with status
+    if (status) {
+      tasks = tasks.filter((task) => task.status === status);
+    }
+
+    // filter with search
+    // would help to use .toLowerCase()
+    if (search) {
+      tasks = tasks.filter(
+        (task) =>
+          task.title.includes(search) || task.description.includes(search),
+      );
+    }
+
+    // return final result
+    return tasks;
   }
 
   public getTaskById(id: string): Task {

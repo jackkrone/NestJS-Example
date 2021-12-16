@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { TaskStatus } from 'src/enums';
 import { CreateTaskDto } from './DTOs/create-task.dto';
+import { GetTasksFilterDto } from './DTOs/get-tasks-filter';
 import { Task } from './task.model';
 import { TasksService } from './tasks.service';
 
@@ -19,11 +21,16 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   // When a get request comes in to the TasksController, it's handled by the appropriate Get handler below
-  // It's probably not necessary to add the return type as TS infers it, but I have it anyways (two lines below)
   // localhost:3000/tasks
   @Get()
-  getAllTasks(): Task[] {
-    return this.tasksService.getAllTasks();
+  getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
+    // Run tasksService.getTasksWithFilters if filters are define
+    // Run tasksService.getAllTasks if no filters defined
+    if (Object.keys(filterDto).length) {
+      return this.tasksService.getTasksWithFilters(filterDto);
+    } else {
+      return this.tasksService.getAllTasks();
+    }
   }
 
   // localhost:3000/tasks/lk234hg438j
