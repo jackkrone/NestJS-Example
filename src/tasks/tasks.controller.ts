@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { Task } from './task.model';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
@@ -8,8 +9,9 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   // Whenever a get request comes in to the TasksController, the getAllTasks method handler will handle it
+  // It's not necessary to add the return type as TS infers it, but I have it anyways (two lines below)
   @Get()
-  getAllTasks() {
+  getAllTasks(): Task[] {
     return this.tasksService.getAllTasks();
   }
 
