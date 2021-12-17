@@ -1,15 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { TaskStatus } from 'src/enums';
-import { Task } from './task.model';
-import { v4 as uuid } from 'uuid';
 import { CreateTaskDto } from './DTOs/create-task.dto';
 import { GetTasksFilterDto } from './DTOs/get-tasks-filter.dto';
 
 @Injectable()
 export class TasksService {
-  private tasks: Task[] = [];
-
-  // It's not necessary to use the public keyword
+  /*   // It's not necessary to use the public keyword
   // It's also not necessary to add the return type as TS infers it
   public getAllTasks(): Task[] {
     return this.tasks;
@@ -85,5 +81,5 @@ export class TasksService {
     const task = this.getTaskById(id);
     task.status = status;
     return task;
-  }
+  } */
 }

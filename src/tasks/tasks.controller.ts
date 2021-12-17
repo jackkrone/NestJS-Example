@@ -11,7 +11,6 @@ import {
 import { CreateTaskDto } from './DTOs/create-task.dto';
 import { GetTasksFilterDto } from './DTOs/get-tasks-filter.dto';
 import { UpdateTaskStatusDto } from './DTOs/update-task-status.dto';
-import { Task } from './task.model';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
@@ -20,7 +19,7 @@ export class TasksController {
   // TS auto creates a private property called tasksService with a value of TasksService
   constructor(private tasksService: TasksService) {}
 
-  // When a get request comes in to the TasksController, it's handled by the appropriate Get handler below
+  /* // When a get request comes in to the TasksController, it's handled by the appropriate Get handler below
   // localhost:3000/tasks
   @Get()
   getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
@@ -65,5 +64,5 @@ export class TasksController {
   ): Task {
     const { status } = updateTaskStatusDto;
     return this.tasksService.updateTaskStatusById(id, status);
-  }
+  } */
 }
