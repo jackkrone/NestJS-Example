@@ -1,10 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { TaskStatus } from 'src/enums';
 import { CreateTaskDto } from './DTOs/create-task.dto';
 import { GetTasksFilterDto } from './DTOs/get-tasks-filter.dto';
+import { TasksRepository } from './tasks.repository';
 
 @Injectable()
 export class TasksService {
+  constructor(
+    @InjectRepository(TasksService)
+    private tasksRepository: TasksRepository,
+  ) {}
+
   /*   // It's not necessary to use the public keyword
   // It's also not necessary to add the return type as TS infers it
   public getAllTasks(): Task[] {
