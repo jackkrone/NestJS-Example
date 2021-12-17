@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { TaskStatus } from 'src/enums';
 import { Task } from './task.model';
 import { v4 as uuid } from 'uuid';
@@ -41,7 +41,18 @@ export class TasksService {
   }
 
   public getTaskById(id: string): Task {
-    return this.tasks.find((task) => task.id === id);
+    // try to get task
+    const found = this.tasks.find((task) => task.id === id);
+    // return task or if not found, throw error (404 not found)
+    if (!found) {
+      // NestJS will auto handle this error and map it to appropriate HTTP response code
+      // If it throws
+      // Wrap in try-catch block to handle it yourself
+      throw new NotFoundException(`Task with ID ${id} not found`);
+      // In general, if an error is thrown and Nest can't map it to a code, it defaults to
+      // ... 500 Internal server error
+    }
+    return found;
   }
 
   public createTask(createTaskDto: CreateTaskDto): Task {
