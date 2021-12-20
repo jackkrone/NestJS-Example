@@ -39,12 +39,12 @@ export class TasksController {
     return this.tasksService.getTaskById(id);
   }
 
-  // // When a post request is received, Nest will assign values from the request body
-  // // ... to the appropriate parameters as defined by the CreateTaskDto class
-  // @Post()
-  // createTask(@Body() createTaskDto: CreateTaskDto): Task {
-  //   return this.tasksService.createTask(createTaskDto);
-  // }
+  // When a post request is received, Nest will assign values from the request body
+  // ... to the appropriate parameters as defined by the CreateTaskDto class
+  @Post()
+  createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.tasksService.createTask(createTaskDto);
+  }
 
   // // localhost:3000/tasks/lk234hg438j
   // @Delete('/:id')

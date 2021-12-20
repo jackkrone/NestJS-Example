@@ -57,21 +57,11 @@ export class TasksService {
     return found;
   }
 
-  // public createTask(createTaskDto: CreateTaskDto): Task {
-  //   const { title, description } = createTaskDto;
-
-  //   const task: Task = {
-  //     id: uuid(),
-  //     title,
-  //     description,
-  //     // The following construction is ideal because you can change the value of OPEN
-  //     // ... in the enums file without having to change anything here
-  //     status: TaskStatus.OPEN,
-  //   };
-
-  //   this.tasks.push(task);
-  //   return task;
-  // }
+  // I don't need async before following method because there is no accompanying await keyword
+  // Need to return a promise still as the function this function calls returns a promise
+  public createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDto);
+  }
 
   // public deleteTaskById(id: string): void {
   //   const found = this.getTaskById(id);
