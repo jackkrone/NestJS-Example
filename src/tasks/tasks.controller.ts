@@ -20,18 +20,14 @@ export class TasksController {
   // TS auto creates a private property called tasksService with a value of TasksService
   constructor(private tasksService: TasksService) {}
 
-  // // When a get request comes in to the TasksController, it's handled by the appropriate Get handler below
-  // // localhost:3000/tasks
-  // @Get()
-  // getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
-  //   // Run tasksService.getTasksWithFilters if filters are define
-  //   // Run tasksService.getAllTasks if no filters defined
-  //   if (Object.keys(filterDto).length) {
-  //     return this.tasksService.getTasksWithFilters(filterDto);
-  //   } else {
-  //     return this.tasksService.getAllTasks();
-  //   }
-  // }
+  // When a get request comes in to the TasksController, it's handled by the appropriate Get handler below
+  // localhost:3000/tasks
+  @Get()
+  getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
+    // Run tasksService.getTasksWithFilters if filters are define
+    // Run tasksService.getAllTasks if no filters defined
+    return this.tasksService.getTasks(filterDto);
+  }
 
   // localhost:3000/tasks/lk234hg438j
   @Get('/:id')
