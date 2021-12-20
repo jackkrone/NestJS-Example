@@ -63,11 +63,18 @@ export class TasksService {
     return this.tasksRepository.createTask(createTaskDto);
   }
 
-  // public deleteTaskById(id: string): void {
-  //   const found = this.getTaskById(id);
-  //   this.tasks = this.tasks.filter((task) => task.id !== found.id);
-  //   // no need to return anything
-  // }
+  public async deleteTaskById(id: string): Promise<void> {
+    // can use remove() or delete() method, I use delete()
+    const result = await this.tasksRepository.delete(id);
+
+    if (result.affected === 0) {
+      // return 404 if task doesn't exist
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+
+    // Note: this method construction is better for scalability than calling getTaskById first to identify if the task exists
+    // This method requires only one database operation, whereas the alternative requires two
+  }
 
   // public updateTaskStatusById(id: string, status: TaskStatus): Task {
   //   // update task of given id

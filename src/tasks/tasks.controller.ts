@@ -46,12 +46,12 @@ export class TasksController {
     return this.tasksService.createTask(createTaskDto);
   }
 
-  // // localhost:3000/tasks/lk234hg438j
-  // @Delete('/:id')
-  // deleteTaskById(@Param('id') id: string): void {
-  //   // not necessary to includ return statemetn but also not problematic here
-  //   return this.tasksService.deleteTaskById(id);
-  // }
+  // localhost:3000/tasks/lk234hg438j
+  @Delete('/:id')
+  deleteTaskById(@Param('id') id: string): Promise<void> {
+    // not necessary to includ return statemetn but also not problematic here
+    return this.tasksService.deleteTaskById(id);
+  }
 
   // // HTTP Patch request is to update
   // // The new status is sent in the body
