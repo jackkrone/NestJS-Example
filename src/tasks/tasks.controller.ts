@@ -53,17 +53,15 @@ export class TasksController {
     return this.tasksService.deleteTaskById(id);
   }
 
-  // // HTTP Patch request is to update
-  // // The new status is sent in the body
-  // // status in the URL (non-variable) is just to indicate what the patch is doing
-  // // Not worthwhile to use DTOs because you need a different one for both Param and Body
-  // // Each only have one value associated with them so DTO wouldn't save time
-  // @Patch('/:id/status')
-  // updateTaskStatusById(
-  //   @Param('id') id: string,
-  //   @Body() updateTaskStatusDto: UpdateTaskStatusDto,
-  // ): Task {
-  //   const { status } = updateTaskStatusDto;
-  //   return this.tasksService.updateTaskStatusById(id, status);
-  // }
+  // new status is sent in the body
+  // status in the URL (non-variable) is just to indicate what the patch is updating (this is proper REST convention)
+  // Can't use only one DTO because you need a different one for both Param and Body
+  @Patch('/:id/status')
+  updateTaskStatusById(
+    @Param('id') id: string,
+    @Body() updateTaskStatusDto: UpdateTaskStatusDto,
+  ): Promise<Task> {
+    const { status } = updateTaskStatusDto;
+    return this.tasksService.updateTaskStatusById(id, status);
+  }
 }

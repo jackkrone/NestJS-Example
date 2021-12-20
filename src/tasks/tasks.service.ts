@@ -76,13 +76,17 @@ export class TasksService {
     // This method requires only one database operation, whereas the alternative requires two
   }
 
-  // public updateTaskStatusById(id: string, status: TaskStatus): Task {
-  //   // update task of given id
-  //   // very simple because JavaScript passes objects by reference
-  //   // it's bad practice to mutate the task directly
-  //   // would be more bulletproof code if you replace it after validating that it exists
-  //   const task = this.getTaskById(id);
-  //   task.status = status;
-  //   return task;
-  // }
+  public async updateTaskStatusById(
+    id: string,
+    status: TaskStatus,
+  ): Promise<Task> {
+    // very simple because JavaScript passes objects by reference
+    const task = await this.getTaskById(id); // must use await bc this method makes a DB operation now
+
+    // It should not be a problem to mutate task directly now as task object is copied from database
+    task.status = status;
+    await this.tasksRepository.save(task);
+
+    return task;
+  }
 }
