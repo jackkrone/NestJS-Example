@@ -7,7 +7,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ unique: true }) // Argument tells typeORM that the usernames must be unique
   username: string;
 
   @Column()
